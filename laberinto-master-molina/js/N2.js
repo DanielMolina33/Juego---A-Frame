@@ -197,7 +197,7 @@ var mapa2 = [
 
 				if (score2 <= 0) {
 					setTimeout(function(){
-						scoreEl2.setAttribute('value',  'Cuando subas, busca el boton');
+						scoreEl2.setAttribute('value',  'Al subir, busca el boton');
 						document.querySelector('#jugador').setAttribute('sound', 'src:#sonidoDeFondoEfecto; volume:2; autoplay: true; loop: true')
 					}, 40000);
 					scoreEl2.setAttribute('value', 'Ve al inicio \n y sube la plataforma');
