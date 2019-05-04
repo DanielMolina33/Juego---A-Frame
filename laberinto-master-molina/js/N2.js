@@ -1,5 +1,5 @@
 var time2;
-var minutos2 = 5,
+var minutos2 = 0,
 segundos2 = 59;
 function recargar2(){
 	var tiempo2 = document.querySelector('#tiempo');
@@ -9,6 +9,7 @@ function recargar2(){
 
   if(minutos2 == 0 && segundos2 == 0){
     location.reload();
+
   } else if(segundos2 == 0){
     minutos2 -= 1;
     segundos2 = 59;
@@ -134,16 +135,16 @@ var mapa2 = [
 
 			} else if (mapa2[x][y] == 6) {
 				//puertas
-				puertas = document.createElement('a-box');
-				muros2.appendChild(puertas);
-				puertas.setAttribute('color', '#fff')
-				puertas.setAttribute('class', 'puertas_class')
-        puertas.setAttribute('material', 'side: double; src: #texturaPuerta')
-        puertas.setAttribute('width', TAMANO_PARED2)
-        puertas.setAttribute('depth', TAMANO_PARED2)
-        puertas.setAttribute('height', ALTO_PARED2)
-        puertas.setAttribute('static-body', '')
-        puertas.setAttribute('position', posicion2)
+					puertas = document.createElement('a-box');
+					muros2.appendChild(puertas);
+					puertas.setAttribute('color', '#fff')
+					puertas.setAttribute('class', 'puertas_class')
+	        puertas.setAttribute('material', 'side: double; src: #texturaPuerta')
+	        puertas.setAttribute('width', TAMANO_PARED2)
+	        puertas.setAttribute('depth', TAMANO_PARED2)
+	        puertas.setAttribute('height', ALTO_PARED2)
+	        puertas.setAttribute('static-body', '')
+	        puertas.setAttribute('position', posicion2)
 
 			} else if (mapa2[x][y] == 7) {
 				//imagen
@@ -170,43 +171,45 @@ var mapa2 = [
 			});
 		})
 
+	//selecciona la llave
 	var llaveYpremios = document.querySelector('#llave_id');
 
-	llaveYpremios.addEventListener('click', function(){
-		llave.setAttribute('visible', 'false');
+		llaveYpremios.addEventListener('click', function(){
+			llave.setAttribute('visible', 'false');
+			time2 = setInterval(recargar2, 1000);
 
-		var eliminaPuertas = Array.from(document.querySelectorAll('.puertas_class'));
-		eliminaPuertas.forEach(function(puertas){
-			muros2.removeChild(puertas);
-		})
-
-		var premios2 = Array.from(document.querySelectorAll('.premio2'))
-		var score2 = premios2.length
-
-		scoreEl2.setAttribute('value', "Encuentra " + score2 + " diamantes");
-
-		premios2.forEach(function(premio2){
-			premio2.addEventListener('click', function(){
-				premio2.setAttribute('visible', 'false')
-				score2 = score2 - 1
-				if(score2 == 1){
-					scoreEl2.setAttribute('value', 'Te falta ' + score2 + ' diamante' + ' para ganar!')
-				} else {
-					scoreEl2.setAttribute('value', 'Te faltan ' + score2 + ' diamantes' + ' para ganar!')
-				}
-
-				if (score2 <= 0) {
-					setTimeout(function(){
-						scoreEl2.setAttribute('value',  'Al subir, busca el boton');
-						document.querySelector('#jugador').setAttribute('sound', 'src:#sonidoDeFondoEfecto; volume:2; autoplay: true; loop: true')
-					}, 40000);
-					scoreEl2.setAttribute('value', 'Ve al inicio \n y sube la plataforma');
-					plataforma.setAttribute('toggle-velocity', 'axis:y; min:4; max:11');
-					muros.removeChild(muro_especial);
-					clearInterval(time2);
-					tiempo2.setAttribute('visible', 'false');
-					fondo2.setAttribute('visible', 'false');
-				}
+			var eliminaPuertas = Array.from(document.querySelectorAll('.puertas_class'));
+			eliminaPuertas.forEach(function(puertas){
+				muros2.removeChild(puertas);
 			})
-		})
-	});
+
+			var premios2 = Array.from(document.querySelectorAll('.premio2'))
+			var score2 = premios2.length
+
+			scoreEl2.setAttribute('value', "Encuentra " + score2 + " diamantes");
+
+			premios2.forEach(function(premio2){
+				premio2.addEventListener('click', function(){
+					premio2.setAttribute('visible', 'false')
+					score2 = score2 - 1
+					if(score2 == 1){
+						scoreEl2.setAttribute('value', 'Te falta ' + score2 + ' diamante' + ' para ganar!')
+					} else {
+						scoreEl2.setAttribute('value', 'Te faltan ' + score2 + ' diamantes' + ' para ganar!')
+					}
+
+					if (score2 <= 0) {
+						setTimeout(function(){
+							scoreEl2.setAttribute('value',  'Al subir, busca el boton');
+							document.querySelector('#jugador').setAttribute('sound', 'src:#sonidoDeFondoEfecto; volume:2; autoplay: true; loop: true')
+						}, 40000);
+						scoreEl2.setAttribute('value', 'Ve al inicio \n y sube la plataforma');
+						plataforma.setAttribute('toggle-velocity', 'axis:y; min:4; max:11');
+						muros.removeChild(muro_especial);
+						clearInterval(time2);
+						tiempo2.setAttribute('visible', 'false');
+						fondo2.setAttribute('visible', 'false');
+					}
+				})
+			})
+		});
