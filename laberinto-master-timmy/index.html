@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> El laberinto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/d7bd9968/components/sun-sky/dist/aframe-sun-sky.min.js"></script>
+    <link rel="icon" type="image/png" href="assets/Imagenes/laberinto-min.png">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    <a-scene id="scene">
+
+      <button class="boton" onclick="pausar();" ondblclick="play();"></button>
+
+      <a-assets>
+        <img src="assets/Texturas/morada-min.jpg"
+          id="premio" />
+        <img src="assets/Texturas/plataforma-min.jpg"
+          id="plataforma" />
+        <img src="assets/Texturas/muro-min.jpg"
+          id="muro" />
+        <img src="assets/Texturas/piso-min.jpg"
+          id="piso" />
+        <img src="assets/Texturas/puerta-min.jpg"
+          id="puerta">
+        <img src="assets/Imagenes/Mapa-min.png"
+          id="Mapa" />
+        <img src="assets/Imagenes/controles_1-min.png"
+          id="controles_1" />
+        <img src="assets/Imagenes/controles_2-min.jpg"
+          id="controles_2">
+
+
+        <audio src="sounds/cancionDefondo.mp3"
+          id="sonidoDeFondo"></audio>
+        <audio src="sounds/sonidoMoneda.mp3"
+          id="sonidoMoneda"></audio>
+        <audio src="sounds/sonidoPuerta.mp3"
+          id="sonidoPuerta"></audio>
+      </a-assets>
+
+
+
+      <a-entity id="jugador"
+        camera
+        kinematic-body
+        universal-controls
+        position="0 1.6 0"
+        sound="src: #sonidoDeFondo; volume: 1; autoplay: true; loop: true;"
+        >
+
+        <a-cursor click>
+          <a-animation begin="click" easing="linear" attribute="scale"
+          fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        </a-cursor>
+
+        <a-text value="" width="4" id="score"
+          color="black" font="mozillavr" position="0 -.5 -1"
+          anchor="center" align="center"></a-text>
+      </a-entity>
+
+      <a-sun-sky material="sunPosition: 0 1 0;"></a-sun-sky>
+
+      <a-ocean  static-body width="50" depth="50" density="40" position="0 -20 0" rotation="-90 0 0" scale="8 8 8" visible="true" ocean="width:50;depth:50;density:40"></a-ocean>
+
+      <a-entity id="muros"></a-entity>
+
+      <a-entity id="premios"></a-entity>
+
+      <a-entity id="caja"></a-entity>
+
+      <a-entity id="puertas"></a-entity>
+
+      <a-entity id="puertas2"></a-entity>
+
+      <a-entity id="correcto"></a-entity>
+
+      <a-box scale="1 17.210 1" position="-3.473 1.383 15.494" material="src:#muro"></a-box>
+
+      <a-box id="boton"cale="1 1 1" position="-2.973 1.600 18.245" color="#d51420"></a-box>
+
+      <a-text value="Oprime el boton para terminar" rotation="0 180 0" position="-1.5 3 152.921" scale="3 3 3"></a-text>
+
+      <a-box id="boton2"cale="1 1 1" position="-6.360 1.6 152.921" color="#d51420"></a-box>
+
+      <a-text value="GANASTE!!!" rotation="0 180 0" position="6.703 7.367 152.921" scale="20 20 20"></a-text>
+
+
+      <!--     Piso y techo     -->
+      <a-grid static-body geometry="primitive: plane" scale="1.4 1.4  0" position="-2.985 0 -109.721" src="#piso"></a-grid>
+
+      <a-box stactic-body position="-3.105 10.078 -111.801" scale="110 110 0.1" rotation="90 0 0" color="#000"></a-box>
+
+      <a-grid static-body geometry="primitive: plane" scale="0.540 1.890  0" position="-6.573 0 86.915" src="#piso"></a-grid>
+
+      <a-box id="pisoF" static-body  scale="1000 20 1000" position="-3 -20 13.847" visible="false"></a-box>
+
+      <!--     Imagenes       -->
+
+      <a-image src="#Mapa" rotation="0 90 0" position="-20.973 2.644 -108.380" scale="4 4 4"></a-image>
+
+      <a-image src="#controles_1" position="0 2 -110.969" scale="3 3 3" ></a-image>
+
+      <a-image src="#controles_2" position="-3.009 2 -59.968" rotation="0 -90 0" scale="3 3 3"> </a-image>
+
+      <!--     Preguntas - Respuestas     -->
+
+      <a-text value="Segun el valor PI ¿Que numero sigue despues del 3.14?" rotation="0 180 0" position="-7 1.545 29.710" scale="3 3 3" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="7" rotation="0 180 0" position="5.733 5 33" scale="10 10 10" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="1" rotation="0 180 0" position="-6.071 5 33" scale="10 10 10" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="5" rotation="0 180 0" position="-17.772 5 33" scale="10 10 10" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+
+      <a-text value="¿Cual es la capital de Colombia?" rotation="0 180 0" position="-7 1.545 60" scale="3 3 3" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="Medellin" rotation="0 180 0" position="5.733 5 64" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="Cali" rotation="0 180 0" position="-6.071 5 64" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="Bogota" rotation="0 180 0" position="-17.772 5 64" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+
+      <a-text value="¿Cuantos planetas hay en el sistema solar?" rotation="0 180 0" position="-7 1.545 88" scale="3 3 3" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="7" rotation="0 180 0" position="5.733 5 94" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="9" rotation="0 180 0" position="-6.071 5 94" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+      <a-text value="8" rotation="0 180 0" position="-17.772 5 94" scale="6 6 6" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+
+      <a-text value="Escoge un camino al azar" rotation="0 180 0" position="-7 1.545 118" scale="3 3 3" color="black" font="mozillavr" anchor="center" align="center"></a-text>
+
+    </a-scene>
+    <script type="text/javascript">
+      function pausar(){
+        var entity = document.querySelector('[sound]');
+        entity.components.sound.pauseSound();
+      }
+
+      function play(){
+        var entity = document.querySelector('[sound]');
+        entity.components.sound.playSound();
+      }
+    </script>
+    <script src="js/mapa.js"></script>
+  </body>
+</html>

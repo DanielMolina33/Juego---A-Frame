@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>El laberinto</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/d7bd9968/components/sun-sky/dist/aframe-sun-sky.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+    <link rel="icon" type="image/png" href="assets/Imagenes/laberinto-min.png">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <a-scene>
+      <button class="boton" onclick="pausar();" ondblclick="play();"></button>
+
+      <a-assets>
+          <audio src="sound/DeFondo.mp3" preload="auto" id="sonidoDeFondo"></audio>
+      </a-assets>
+
+      <a-entity id="jugador"camera universal-controls kinematic-body position="0 10 0"
+      sound="src: #sonidoDeFondo; volume: 2; autoplay: true; loop: true;"
+      >
+        <a-cursor click>
+          <a-animation begin="click" easing="linear" attribute="scale"
+          from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        </a-cursor>
+      </a-entity>
+
+      <a-grid width="155" height="160" static-body position="0 8 0" visible="false"></a-grid>
+
+      <a-sun-sky material="sunPosition: 0 4 0;"></a-sun-sky>
+
+      <a-ocean width="50" depth="50" density="40" position="0 0 0" rotation="-90 0 0" scale="8 8 8" visible="true" ocean="width:50;depth:50;density:40"></a-ocean>
+
+    <a-entity>
+      <a-plane position="0 15 -5.2" width="100" height="30" opacity="0" static-body></a-plane>
+
+      <a-text value="Creado por Cristhian Munoz" text="wrapCount:45" width="4"
+      color="black" font="kelsonsans" position="0 11.4 -4.5"
+      anchor="center" align="center"></a-text>
+
+      <a-plane position="0 13 -5" width="5" opacity="0"></a-plane>
+      <a-text value="Laberinto" text="wrapCount:10" width="4"
+      color="black" font="kelsonsans" position="0 12 -4.5"
+      anchor="center" align="center"></a-text>
+
+      <a-text value="Un proyecto en colaboracion con Jose Daniel Molina y Jhonatan Garcia, esperamos que te haya gustado" text="wrapCount:35" width="4"
+      color="blue" font="kelsonsans" position="0 10 -4.5"
+      anchor="center" align="center"></a-text>
+    </a-entity>
+
+    </a-scene>
+  <script>
+  function pausar(){
+    var entity = document.querySelector('[sound]');
+    entity.components.sound.pauseSound();
+  }
+
+  function play(){
+    var entity = document.querySelector('[sound]');
+    entity.components.sound.playSound();
+  }
+
+    function redireccionar(){
+      window.location.href = 'juego.html' ;
+    }
+  </script>
+  </body>
+</html>

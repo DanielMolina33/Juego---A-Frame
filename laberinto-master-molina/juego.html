@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>El laberinto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/a-frame/a-frame.js"></script>
+    <script src="js/a-frame/a-frame-extras.js"></script>
+    <script src="js/a-frame/a-sun-sky.js"></script>
+    <script src="js/a-frame/a-frame-extrasv6.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/laberinto.png">
+  </head>
+  <body>
+    <a-scene>
+      <button class="boton" onclick="pausar();" ondblclick="play();"></button>
+      <button id="boton" disabled></button>
+
+      <a-assets>
+        <img src="assets/textura_concreto.jpg" id="texturaConcreto" />
+        <img src="assets/mapa.png" id="mapa_min">
+          <img src="assets/imagen_impulso.jpg" id="imagenImpulso">
+          <img src="assets/textura_piso.jpg" id="texturaPiso">
+          <img src="assets/pared.jpg" id="textura_pared">
+          <img src="assets/textura_muro_pasable.jpg" id="texturaMuroQueSePasa">
+          <img src="assets/textura_premio.jpg" id="texturaPremio">
+          <img src="assets/llave.png" id="imagenLlave">
+          <img src="assets/puerta.jpg" id="texturaPuerta">
+          <img src="assets/globos.svg" id="globos">
+          <img src="assets/fuego_artificial.png" id="fuegoArtificial">
+          <audio src="sound/DeFondo.mp3" id="sonidoDeFondo"></audio>
+          <audio src="sound/DeFondoEfecto.mp3" id="sonidoDeFondoEfecto"></audio>
+          <audio src="sound/efectoMoneda.mp3" id="efecto_moneda"></audio>
+      </a-assets>
+
+      <a-entity id="jugador"
+        jump-ability="maxJumps:1;distance:2"
+        camera
+        kinematic-body
+        universal-controls
+        position="0 2 0"
+        sound="src: #sonidoDeFondo; volume: 2; autoplay: true; loop: true"
+      >
+
+        <a-cursor click>
+          <a-animation begin="click" easing="linear" attribute="scale"
+          fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+        </a-cursor>
+
+        <a-text value="" width="3" id="score"
+          color="black" font="kelsonsans" position="0 -.5 -1"
+          anchor="center" align="center"></a-text>
+
+        <a-plane color="white" opacity="0.4" position="1 0.11 -1" width="0.8" height="0.2" id="fondoTiempo"></a-plane>
+        <a-text value="" width="4" id="tiempo"
+          color="black" font="kelsonsans" position="1 0.11 -1"
+          anchor="center" align="center" text="wrapCount:150"></a-text>
+
+        <a-image src="#mapa_min" id="mapa" position="1 0.48 -1" width="1" height="1" scale="1 0.9 0.9"></a-image>
+      </a-entity>
+
+      <a-text value="INICIO" width="5" text="wrapCount:8"
+        color="white" font="kelsonsans" position="-69.4 3 -20"
+        anchor="center" align="center" rotation="0 90 0" id="textoInicio"></a-text>
+
+      <a-ocean width="50" depth="50" density="40" position="0 -3.5 0" rotation="-90 0 0" scale="8 8 8" visible="true" ocean="width:50;depth:50;density:40"></a-ocean>
+
+      <a-sun-sky material="sunPosition: 0 4 0;"></a-sun-sky>
+
+      <a-entity id="muros"></a-entity>
+
+      <a-entity id="muros2"></a-entity>
+
+      <a-entity id="premios"></a-entity>
+
+      <a-entity id="premios2"></a-entity>
+
+      <a-entity id="key"></a-entity>
+
+      <a-entity id="piso">
+        <a-grid width="155" height="160" static-body src="#texturaPiso"></a-grid>
+      </a-entity>
+
+    <!-- Adornos 3 nivel -->
+    <a-entity id="adornos">
+      <a-text value="GANASTE, FELICIDADES" width="110" text="wrapCount:11"
+        color="white" font="kelsonsans" position="60 35 0"
+        anchor="center" align="center" rotation="0 -90 0"></a-text>
+
+      <a-image src="#globos" position="60 35 65" rotation="0 -90 0" scale="40 40 0" material="side:front" ></a-image>
+      <a-image src="#globos" position="60 35 -65" rotation="0 -90 0" scale="40 40 0" material="side:front" ></a-image>
+
+      <!--fuegos artificiales-->
+      <a-image src="#fuegoArtificial" position="60 70 0" rotation="0 -90 0" material="side:front" >
+        <a-animation easing="ease" attribute="scale"
+        from="0 0 0" to="40 40 0" dur="600" repeat="indefinite"></a-animation>
+        <a-animation easing="ease" attribute="position"
+        to="30 70 0" dur="600" repeat="indefinite"></a-animation>
+      </a-image>
+      <a-image src="#fuegoArtificial" position="60 35 -100" rotation="0 -90 0" material="side:front" >
+        <a-animation easing="ease" attribute="scale"
+        from="0 0 0" to="40 40 0" dur="600" repeat="indefinite"></a-animation>
+        <a-animation easing="ease" attribute="position"
+        to="30 35 -100" dur="600" repeat="indefinite"></a-animation>
+      </a-image>
+      <a-image src="#fuegoArtificial" position="60 35 100" rotation="0 -90 0" material="side:front" >
+        <a-animation easing="ease" attribute="scale"
+        from="0 0 0" to="40 40 0" dur="600" repeat="indefinite"></a-animation>
+        <a-animation easing="ease" attribute="position"
+        to="30 35 100" dur="600" repeat="indefinite"></a-animation>
+      </a-image>
+
+      <a-box width="0.3" height="0.5" color="red" position="-67.4 12 -15" onclick="setTimeout(redireccionar, 500);"></a-box>
+      <a-text value="PULSAME" width="4" text="wrapCount:30"
+        color="white" font="kelsonsans" position="-67.4 12.8 -15"
+        anchor="center" align="center" rotation="0 90 0"></a-text>
+    </a-entity>
+
+    <!-- Flechas guia 1 nivel -->
+    <a-image src="assets/imagen_flecha.png" position="-30.000 2.500 -67.4" rotation=" 0 0 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="-20.000 2.500 -37.520" rotation=" 0 0 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="15.000 2.500 -7.450" rotation=" 0 0 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="-27.460 2.500 -5" rotation=" 0 -90 0"></a-image>
+
+    <!-- flechas guia 2 nivel -->
+    <a-image src="assets/imagen_flecha.png" position="-37.560 7 50" rotation="0 -90 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="-67.4 7 20" rotation="0 -90 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="27.530 7 30" rotation="0 90 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="2.520 7 37" rotation="0 90 0"></a-image>
+    <a-image src="assets/imagen_flecha.png" position="40 7 37.550" rotation="0 0 -180"></a-image>
+
+    </a-scene>
+    <script src="js/N1.js"></script>
+    <script src="js/N2.js"></script>
+  </body>
+</html>

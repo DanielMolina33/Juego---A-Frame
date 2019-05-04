@@ -1,0 +1,16 @@
+.boton{
+  width: 74.2969px;
+  height: 55.625px;
+  z-index: 1;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: url(../assets/Imagenes/mute.svg) no-repeat rgba(0,0,0,.35) center;
+  background-size: 40px;
+  border: none;
+  cursor: pointer;
+}
+
+.boton:hover{
+  background-color: #666;
+}
