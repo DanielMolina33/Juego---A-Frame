@@ -1,4 +1,4 @@
-.boton{
+.boton, #btn{
   width: 74.2969px;
   height: 55.625px;
   z-index: 1;
@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
-.boton:hover{
+.boton:hover, #btn:hover{
   background-color: #666;
+}
+
+#btn{
+  left: 120px;
+  background: url(../assets/Imagenes/caminar.svg) no-repeat rgba(0,0,0,.35) center;
 }
