@@ -1,5 +1,5 @@
 var time2;
-var minutos2 = 0,
+var minutos2 = 5,
 segundos2 = 59;
 function recargar2(){
 	var tiempo2 = document.querySelector('#tiempo');
