@@ -18,9 +18,11 @@
       <a-assets>
           <audio src="sound/DeFondo.mp3" preload="auto" id="sonidoDeFondo"></audio>
           <img src="assets/controles.png" id="imgControls">
+          <img src="assets/laberinto1-min.jpeg" id="timmy">
+          <img src="assets/laberinto2-min.jpeg" id="molina">
       </a-assets>
 
-      <a-entity id="jugador"camera universal-controls kinematic-body position="2.5 10 2"
+      <a-entity id="jugador"camera universal-controls kinematic-body position="1 10 1.5"
       sound="src: #sonidoDeFondo; volume: 2; autoplay: true; loop: true;"
       >
         <a-cursor click>
@@ -38,21 +40,23 @@
     <a-entity>
       <a-plane position="0 15 -5.2" width="100" height="30" opacity="0" static-body></a-plane>
 
-      <a-plane position="0 13 -5" width="5" opacity="0" onclick="setTimeout(redireccionar_juego2, 500);"></a-plane>
-      <a-text value="Juego 1" text="wrapCount:10" width="4"
-      color="black" font="kelsonsans" position="0 13 -4.5"
+      <a-text value="Escoge un mundo" text="wrapCount:12" width="4"
+      color="black" font="kelsonsans" position="-1.347 13.7 -4.5"
       anchor="center" align="center"></a-text>
 
-      <a-plane position="0 11 -5" width="5" color="red" opacity="0" onclick="setTimeout(redireccionar_juego1, 500);"></a-plane>
-      <a-text value="Juego 2" text="wrapCount:10" width="4"
-      color="black" font="kelsonsans" position="0 11 -4.5"
+      <a-text value="Adentrate en esta aventura, donde te enfrentaras a diferentes retos y dificultades unicas, ¿Estas preparado? ¡Pues adelante!" text="wrapCount:35" width="4"
+      color="blue" font="kelsonsans" position="0.857 8.5 -4.5"
       anchor="center" align="center"></a-text>
 
-      <a-text value="Adentrate en esta aventura, donde te enfrentaras a diferentes retos y dificultades unicas, ¿Estas preparado? ¡Pues adelante! Pulsa jugar, espera la musica y juega!" text="wrapCount:35" width="4"
-      color="blue" font="kelsonsans" position="0 8.5 -4.5"
+      <a-text value="Proyecto realizado por Jose Daniel Molina, Jhonatan Garcia y Cristhian Munoz de sistemas y redes tercer semestre" text="wrapCount:35" width="4"
+      color="blue" font="kelsonsans" position="-3.652 8.5 -4.5"
       anchor="center" align="center"></a-text>
 
       <a-image src="#imgControls" position="6 11 -4.5" scale="5 5 5"></a-image>
+
+      <a-image src="#timmy" position="-3.251 11 -4.5" scale="3 3 3" onclick="setTimeout(redireccionar_juego2, 500)"></a-image>
+
+      <a-image src="#molina" position="0.920 11 -4.5" scale="3 3 3" onclick="setTimeout(redireccionar_juego1, 500);"></a-image>
     </a-entity>
 
 
